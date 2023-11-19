@@ -20,6 +20,9 @@ public class App {
                 case "get":
                     testGet(size, rand);
                     break;
+                case "set":
+                    testSet(size, rand);
+                    break;
                 case "immutable":
                     testImmutable(size, rand);
                     break;
@@ -44,6 +47,32 @@ public class App {
         for (int i = 0; i < size; ++i) {
             if (!nums.get(i).equals(vec.get(i))) {
                 System.out.println("get failed " + i + ", " + nums.get(i) + " != " + vec.get(i));
+                return;
+            }
+        }
+        printSeqSums(vec);
+    }
+
+    static void testSet(int size, Random rand) {
+        BTVector<Integer> vec = BTVector.empty();
+        List<Integer> nums = new ArrayList<>();
+        for (int i = 0; i < size; ++i) {
+            var n = rand.nextInt();
+            vec = vec.add(n);
+            nums.add(n);
+        }
+        printSeqSums(vec);
+        List<IndexValuePair> ivps = new ArrayList<>();
+        for (int i = 0; i < size; ++i) {
+            if (rand.nextDouble() < 0.3) {
+                var n = rand.nextInt();
+                vec = vec.set(i, n);
+                ivps.add(new IndexValuePair(i, n));
+            }
+        }
+        for (var ivp : ivps) {
+            if (!vec.get(ivp.index).equals(ivp.value)) {
+                System.out.println("get failed " + ivp + ", " + vec.get(ivp.index));
                 return;
             }
         }

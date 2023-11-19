@@ -1,6 +1,6 @@
 package csci2320;
 
-import java.util.Arrays;  // You will probably find Arrays.copy useful for this assignment.
+import java.util.Arrays;  // You will probably find Arrays.copyOf useful for this assignment.
 import java.util.Iterator;
 
 public abstract class BTVector<E> implements Iterable<E> {
@@ -15,6 +15,15 @@ public abstract class BTVector<E> implements Iterable<E> {
    * Gets the value at a particular index.
    */
   abstract public E get(int index);
+
+  /**
+   * Returns a new vector where the value at the given location has been changed. Note that
+   * the original collection is not altered in any way.
+   * @param index location to change
+   * @param elem value to set it to
+   * @return a new vector with one value modified
+   */
+  abstract public BTVector<E> set(int index, E elem);
 
   /**
    * Returns the size of the vector.
@@ -88,6 +97,12 @@ public abstract class BTVector<E> implements Iterable<E> {
     }
 
     @Override
+    public BTVector<E> set(int index, E elem) {
+      // TODO Auto-generated method stub
+      throw new UnsupportedOperationException("Unimplemented method 'set'");
+    }
+
+    @Override
     public int size() {
       // TODO Auto-generated method stub
       throw new UnsupportedOperationException("Unimplemented method 'size'");
@@ -120,8 +135,9 @@ public abstract class BTVector<E> implements Iterable<E> {
     // have to store a number of elements in the leaves.
 
     // TODO: Add you constructors here.
-    // My implementation had three. One took no arguments and made an array of length zero.
-    // One took a single element. THe last took an array and the new element to add.
+    // My implementation had four. One took no arguments and made an array of length zero.
+    // One took a single element. One took an array of elements. The last took an array and 
+    // the new element to add.
 
     // You can create an E[] the way we have in the past with (E[]) new Object[0].
 
@@ -135,6 +151,12 @@ public abstract class BTVector<E> implements Iterable<E> {
     public E get(int index) {
       // TODO Auto-generated method stub
       throw new UnsupportedOperationException("Unimplemented method 'get'");
+    }
+
+    @Override
+    public BTVector<E> set(int index, E elem) {
+      // TODO Auto-generated method stub
+      throw new UnsupportedOperationException("Unimplemented method 'set'");
     }
 
     @Override
