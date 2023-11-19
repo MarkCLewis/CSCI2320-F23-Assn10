@@ -37,6 +37,7 @@ public class App {
     }
 
     static void testGet(int size, Random rand) {
+        System.out.println("Start get.");
         BTVector<Integer> vec = BTVector.empty();
         List<Integer> nums = new ArrayList<>();
         for (int i = 0; i < size; ++i) {
@@ -54,6 +55,7 @@ public class App {
     }
 
     static void testSet(int size, Random rand) {
+        System.out.println("Start set.");
         BTVector<Integer> vec = BTVector.empty();
         List<Integer> nums = new ArrayList<>();
         for (int i = 0; i < size; ++i) {
@@ -80,6 +82,7 @@ public class App {
     }
 
     static void testImmutable(int size, Random rand) {
+        System.out.println("Start immutable.");
         List<Double> nums = new ArrayList<>();
         List<BTVector<Double>> vecs = new ArrayList<>();
         for (int i = 0; i < size; ++i) {
@@ -105,6 +108,29 @@ public class App {
         }
         double sum = 0.0;
         for (var x : vecs.get(size - 1)) sum += x;
-        System.out.printf("Sum: %1.4f", sum);
+        System.out.printf("Sum1: %1.4f\n", sum);
+        var v1 = vecs.get(size - 2);
+        var v2 = vecs.get(size - 1);
+        for (int i = 0; i < size - 1; ++i) {
+            var oldx = v1.get(i);
+            var newx = rand.nextDouble();
+            if (rand.nextDouble() < 0.3) {
+                v2 = v2.set(i, newx);
+                if (!v2.get(i).equals(newx)) {
+                    System.out.println("New vector not set properly: " + i);
+                    return;
+                }
+            }
+            if (!oldx.equals(v1.get(i))) {
+                System.out.println("Changed wrong vector on set: " + i);
+                return;
+            }
+        }
+        sum = 0.0;
+        for (var x : v2) sum += x;
+        System.out.printf("Sum2: %1.4f\n", sum);
+        sum = 0.0;
+        for (var x : vecs.get(size - 1)) sum += x;
+        System.out.printf("Sum3: %1.4f\n", sum);
     }
 }
