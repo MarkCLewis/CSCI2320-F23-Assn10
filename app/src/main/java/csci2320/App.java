@@ -13,18 +13,25 @@ public class App {
 
     public static void main(String[] args) {
         try (Scanner sc = new Scanner(System.in)) {
-            Random rand = new Random(sc.nextLong());
-            int size = sc.nextInt();
             String testType = sc.next();
+            if (testType.equals("speed")) {
+                speed(1000000);
+                return;
+            }
+            Random rand = new Random(sc.nextLong());
+            int size1 = sc.nextInt();
+            int size2 = sc.nextInt();
+
             switch (testType) {
-                case "get":
-                    testGet(size, rand);
-                    break;
-                case "set":
-                    testSet(size, rand);
+                case "basic":
+                    testGet(size1, rand);
+                    testSet(size1, rand);
+                    testGet(size2, rand);
+                    testSet(size2, rand);
                     break;
                 case "immutable":
-                    testImmutable(size, rand);
+                    testImmutable(size1, rand);
+                    testImmutable(size2, rand);
                     break;
             }
         }
@@ -132,5 +139,17 @@ public class App {
         sum = 0.0;
         for (var x : vecs.get(size - 1)) sum += x;
         System.out.printf("Sum3: %1.4f\n", sum);
+    }
+
+    static void speed(int size) {
+        var start = System.nanoTime();
+        Random rand = new Random(45283);
+
+        testGet(100000, rand);
+        System.out.println("Get time: " + (System.nanoTime() - start)*1e-9);
+        testSet(100000, rand);
+        System.out.println("Set time: " + (System.nanoTime() - start)*1e-9);
+        testImmutable(100000, rand);
+        System.out.println("Final time: " + (System.nanoTime() - start)*1e-9);
     }
 }
