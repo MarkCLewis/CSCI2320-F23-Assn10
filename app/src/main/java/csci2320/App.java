@@ -145,11 +145,11 @@ public class App {
         var start = System.nanoTime();
         Random rand = new Random(45283);
 
-        testGet(100000, rand);
+        testGet(size, rand);
         System.out.println("Get time: " + (System.nanoTime() - start)*1e-9);
-        testSet(100000, rand);
+        testSet(size, rand);
         System.out.println("Set time: " + (System.nanoTime() - start)*1e-9);
-        testImmutable(100000, rand);
+        testImmutable(size / 50, rand);
         System.out.println("Final time: " + (System.nanoTime() - start)*1e-9);
     }
 }
